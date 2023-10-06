@@ -1,20 +1,20 @@
 import random
-import constant as c
+import constants as c
 
 def new_game(n):
     matrix = []
     for i in range(n):
         matrix.append([0]*n)
-    matrix.add_two()
+    matrix = add_two(matrix)
     matrix = add_two(matrix)
     return matrix
 
 def add_two(mat):
-    a = random.randint(0,len(mat))
-    b = random.randint(0,len(mat))
+    a = random.randint(0,len(mat)-1)
+    b = random.randint(0,len(mat)-1)
     while mat[a][b] != 0:
-        a = random.randint(0,len(mat))
-        b = random.randint(0,len(mat))
+        a = random.randint(0,len(mat)-1)
+        b = random.randint(0,len(mat)-1)
     mat[a][b] = 2
     return mat
 
@@ -97,12 +97,13 @@ def up(game):
 
 def down(game):
     print("down")
-    game = transpose(reverse(game))
+    game = reverse(transpose(game))
     game = reverse(game)
     game, done = cover_up(game)
     game, done = merge(game, done)
     game = cover_up(game)[0]
     game = transpose(reverse(game))
+    return game, done
 
 def left(game):
     print("left")
